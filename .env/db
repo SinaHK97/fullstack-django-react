@@ -1,0 +1,3 @@
+POSTGRES_DB: trendplus
+POSTGRES_USER: trendplus
+POSTGRES_PASSWORD: trendplus

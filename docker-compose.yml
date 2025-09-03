@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: db
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    expose:
+      - 5432
+    env_file:
+      - ./.env/db
+
+  backend:
+    image: logistics-backend
+    container_name: backend
+    build:
+      context: ./backend/
+      dockerfile: ./Dockerfile
+    command: gunicorn --bind 0.0.0.0:8000 --workers 3 --worker-class uvicorn.workers.UvicornWorker logistics.asgi
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    depends_on: 
+      - db
+    env_file:
+      - .env/backend
+
+  frontend:
+    image: logistics-frontend
+    container_name: frontend
+    build:
+      context: ./frontend/
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3000:80
+    depends_on:
+      - backend
