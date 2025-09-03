@@ -1,4 +1,4 @@
-# TrendPlus
+# FullStack Challenge
 
 A full‑stack logistics dashboard for managing delivery routes and orders.
 
@@ -186,11 +186,3 @@ Authorization: Bearer <access>
 - Add integration/unit tests (API + frontend), CI, and linters.
 - Add health checks for services and database readiness probes.
 - Containerize frontend or add a reverse proxy (e.g., Nginx) for a production deployment, and serve Django static files from NGINX.
-
-## Development tips
-- Django superuser: You can create one inside the backend container if needed:
-  ```bash
-  docker compose exec backend python manage.py createsuperuser
-  ```
-- Reset DB (dev): stop containers, delete `./pgdata`, then `docker compose up --build -d`.
-- API base URL: update `frontend/src/app/api.ts` if running backend on a different host/port. 
